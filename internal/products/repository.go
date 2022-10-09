@@ -1,4 +1,6 @@
-package internal
+package products
+
+import "fmt"
 
 
 type Product struct {
@@ -39,5 +41,6 @@ func (r *repository) Store(id int, name, colour, code, createdAt string, stock i
    p := Product{id, name, colour, price, stock, code, published, createdAt}
    ps = append(ps, p)
    lastID = p.Id
+   fmt.Println("REPOSITORY>>> ", id, name, colour, code, createdAt)
    return p, nil
 }

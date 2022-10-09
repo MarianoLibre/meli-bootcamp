@@ -3,7 +3,8 @@ package main
 
 import (
     "github.com/gin-gonic/gin"
-    "github.com/MarianoLibre/backpack-bcgow6-mariano-macri/tree/main/M7/go-web-capas/internal/products"
+    "github.com/MarianoLibre/go-web-capas/internal/products"
+    "github.com/MarianoLibre/go-web-capas/cmd/server/handler"
 )
 
 

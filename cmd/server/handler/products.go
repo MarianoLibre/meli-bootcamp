@@ -1,9 +1,10 @@
 package handler
 
-
 import (
-   "github.com/gin-gonic/gin"
-   "github.com/MarianoLibre/backpack-bcgow6-mariano-macri/M7/go-web-capas/internal"
+	"fmt"
+
+	"github.com/MarianoLibre/go-web-capas/internal/products"
+	"github.com/gin-gonic/gin"
 )
 
 type request struct {
@@ -61,6 +62,7 @@ func (c *Product) Store() gin.HandlerFunc {
           })
           return
        }
+       fmt.Println("HANDLER>>> ", req)
        p, err := c.service.Store(req.Name, req.Colour, req.Code, req.CreatedAt, req.Stock, req.Price, req.Published)
        if err != nil {
           ctx.JSON(404, gin.H{ "error": err.Error() })

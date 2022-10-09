@@ -1,12 +1,16 @@
-package internal
+package products
+
+import "fmt"
 
 type Service interface {
    GetAll() ([]Product, error)
    Store(name, colour, code, createdAt string, stock int, price float64, published bool) (Product, error)
 }
+
 type service struct {
    repository Repository
 }
+
 func NewService(r Repository) Service {
    return &service{
        repository: r,
@@ -35,5 +39,6 @@ func (s *service) Store(name, colour, code, createdAt string, stock int, price f
        return Product{}, err
    }
 
+   fmt.Println("SERVICE>>> !", producto)
    return producto, nil
 }
