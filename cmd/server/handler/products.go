@@ -122,3 +122,37 @@ func (c *Product) Update() gin.HandlerFunc {
 		ctx.JSON(200, p)
 	}
 }
+
+func (c *Product) UpdateNameAndPrice() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		token := ctx.GetHeader("token")
+		if token != "123456" {
+			ctx.JSON(401, gin.H{"error": "token inválido"})
+			return
+		}
+		id, err := strconv.ParseInt(ctx.Param("id"), 10, 64)
+		if err != nil {
+			ctx.JSON(400, gin.H{"error": "invalid ID"})
+			return
+		}
+		var req request
+		if err := ctx.ShouldBindJSON(&req); err != nil {
+			ctx.JSON(400, gin.H{"error": err.Error()})
+			return
+		}
+		if req.Name == "" {
+			ctx.JSON(400, gin.H{"error": "'Name' is required"})
+			return
+		}
+		if req.Price == 0.0 {
+			ctx.JSON(400, gin.H{"error": "'Price' is required"})
+            return
+		}
+		p, err := c.service.UpdateNameAndPrice(int(id), req.Name, req.Price)
+		if err != nil {
+			ctx.JSON(404, gin.H{"error": err.Error()})
+			return
+		}
+		ctx.JSON(200, p)
+	}
+}

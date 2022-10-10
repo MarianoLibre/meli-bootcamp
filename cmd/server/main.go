@@ -15,6 +15,7 @@ func main() {
 	pr := r.Group("/products")
 	pr.POST("/", p.Store())
 	pr.GET("/", p.GetAll())
-    pr.PUT("/:id", p.Update())
+	pr.PUT("/:id", p.Update())
+    pr.PATCH("/:id", p.UpdateNameAndPrice())
 	r.Run()
 }
