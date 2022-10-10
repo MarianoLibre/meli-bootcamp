@@ -146,7 +146,7 @@ func (c *Product) UpdateNameAndPrice() gin.HandlerFunc {
 		}
 		if req.Price == 0.0 {
 			ctx.JSON(400, gin.H{"error": "'Price' is required"})
-            return
+			return
 		}
 		p, err := c.service.UpdateNameAndPrice(int(id), req.Name, req.Price)
 		if err != nil {
@@ -154,5 +154,26 @@ func (c *Product) UpdateNameAndPrice() gin.HandlerFunc {
 			return
 		}
 		ctx.JSON(200, p)
+	}
+}
+
+func (c *Product) Delete() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		token := ctx.GetHeader("token")
+		if token != "123456" {
+			ctx.JSON(401, gin.H{"error": "token inválido"})
+			return
+		}
+		id, err := strconv.ParseInt(ctx.Param("id"), 10, 64)
+		if err != nil {
+			ctx.JSON(400, gin.H{"error": "invalid ID"})
+			return
+		}
+		err = c.service.Delete(int(id))
+		if err != nil {
+			ctx.JSON(404, gin.H{"error": err.Error()})
+			return
+		}
+		ctx.JSON(200, gin.H{"data": fmt.Sprintf("El producto %d ha sido eliminado", id)})
 	}
 }

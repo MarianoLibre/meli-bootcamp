@@ -7,6 +7,7 @@ type Service interface {
 	Store(name, colour, code, createdAt string, stock int, price float64, published bool) (Product, error)
 	Update(id int, name, colour, code, createdAt string, stock int, price float64, published bool) (Product, error)
 	UpdateNameAndPrice(id int, name string, price float64) (Product, error)
+	Delete(id int) error
 }
 
 type service struct {
@@ -51,4 +52,8 @@ func (s *service) Update(id int, name, colour, code, createdAt string, stock int
 
 func (s *service) UpdateNameAndPrice(id int, name string, price float64) (Product, error) {
 	return s.repository.UpdateNameAndPrice(id, name, price)
+}
+
+func (s *service) Delete(id int) error {
+	return s.repository.Delete(id)
 }
