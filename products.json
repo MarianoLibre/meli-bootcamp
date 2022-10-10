@@ -1,8 +1,8 @@
 [
   {
     "id": 1,
-    "name": "Bass",
-    "colour": "silver",
+    "name": "ukulele",
+    "colour": "brown",
     "price": 200,
     "stock": 5,
     "code": "ASDF",
@@ -10,9 +10,29 @@
     "created-at": "Today"
   },
   {
-    "id": 2,
-    "name": "Guitar",
-    "colour": "blue",
+    "id": 3,
+    "name": "Bass",
+    "colour": "brown",
+    "price": 200,
+    "stock": 5,
+    "code": "ASDF",
+    "published": true,
+    "created-at": "Today"
+  },
+  {
+    "id": 4,
+    "name": "Keyboard",
+    "colour": "brown",
+    "price": 200,
+    "stock": 5,
+    "code": "ASDF",
+    "published": true,
+    "created-at": "Today"
+  },
+  {
+    "id": 5,
+    "name": "pan flute",
+    "colour": "brown",
     "price": 200,
     "stock": 5,
     "code": "ASDF",

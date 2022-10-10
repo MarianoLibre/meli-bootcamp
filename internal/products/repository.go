@@ -88,7 +88,7 @@ func (r *repository) Update(id int, name, colour, code, createdAt string, stock 
 		}
 	}
 	if !updated {
-		return Product{}, fmt.Errorf("Producto %d no encontrado", id)
+		return Product{}, fmt.Errorf("Product '%d' not found", id)
 	}
 	return p, nil
 }
@@ -107,7 +107,7 @@ func (r *repository) UpdateNameAndPrice(id int, name string, price float64) (Pro
 		}
 	}
 	if !updated {
-		return Product{}, fmt.Errorf("Producto %d no encontrado", id)
+		return Product{}, fmt.Errorf("Product '%d' not found", id)
 	}
 	return p, nil
 }
@@ -124,8 +124,11 @@ func (r *repository) Delete(id int) error {
 		}
 	}
 	if !deleted {
-		return fmt.Errorf("Producto %d no encontrado", id)
+		return fmt.Errorf("Product '%d' not found", id)
 	}
 	ps = append(ps[:index], ps[index+1:]...)
+    if r.db.Write(ps) != nil {
+        return fmt.Errorf("error while deleting product '%d'", id)
+    }
 	return nil
 }
