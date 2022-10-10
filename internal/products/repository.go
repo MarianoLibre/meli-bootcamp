@@ -1,6 +1,10 @@
 package products
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/MarianoLibre/go-web-capas/pkg/store"
+)
 
 type Product struct {
 	Id        int     `json:"id"`
@@ -13,7 +17,6 @@ type Product struct {
 	CreatedAt string  `json:"created-at"`
 }
 
-var ps []Product
 var lastID int
 
 type Repository interface {
@@ -25,13 +28,19 @@ type Repository interface {
 	Delete(id int) error
 }
 
-type repository struct{}
+type repository struct{
+    db store.Store
+}
 
-func NewRepository() Repository {
-	return &repository{}
+func NewRepository(db store.Store) Repository {
+	return &repository{
+        db: db,
+    }
 }
 
 func (r *repository) GetAll() ([]Product, error) {
+    var ps []Product
+    r.db.Read(&ps)
 	return ps, nil
 }
 
@@ -41,15 +50,23 @@ func (r *repository) LastID() (int, error) {
 
 func (r *repository) Store(id int, name, colour, code, createdAt string, stock int, price float64, published bool) (Product, error) {
 	p := Product{id, name, colour, price, stock, code, published, createdAt}
+
+    var ps []Product
+    r.db.Read(&ps)
 	ps = append(ps, p)
 	lastID = p.Id
-	fmt.Println("REPOSITORY>>> ", id, name, colour, code, createdAt)
+	//fmt.Println("REPOSITORY>>> ", id, name, colour, code, createdAt)
+    if err := r.db.Write(ps); err != nil {
+        return Product{}, err
+    }
 	return p, nil
 }
 
 func (r *repository) Update(id int, name, colour, code, createdAt string, stock int, price float64, published bool) (Product, error) {
 	p := Product{Name: name, Colour: colour, Code: code, CreatedAt: createdAt, Stock: stock, Price: price, Published: published}
 	updated := false
+    var ps []Product
+    r.db.Read(&ps)
 	for i := range ps {
 		if ps[i].Id == id {
 			p.Id = id
@@ -66,6 +83,8 @@ func (r *repository) Update(id int, name, colour, code, createdAt string, stock 
 func (r *repository) UpdateNameAndPrice(id int, name string, price float64) (Product, error) {
 	var p Product
 	updated := false
+    var ps []Product
+    r.db.Read(&ps)
 	for i := range ps {
 		if ps[i].Id == id {
 			ps[i].Name = name
@@ -83,6 +102,8 @@ func (r *repository) UpdateNameAndPrice(id int, name string, price float64) (Pro
 func (r *repository) Delete(id int) error {
 	deleted := false
 	var index int
+    var ps []Product
+    r.db.Read(&ps)
 	for i := range ps {
 		if ps[i].Id == id {
 			index = i
