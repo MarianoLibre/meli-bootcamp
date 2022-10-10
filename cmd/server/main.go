@@ -5,6 +5,7 @@ import (
 
 	"github.com/MarianoLibre/go-web-capas/cmd/server/handler"
 	"github.com/MarianoLibre/go-web-capas/internal/products"
+	"github.com/MarianoLibre/go-web-capas/pkg/store"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 )
@@ -13,7 +14,8 @@ func main() {
 	if godotenv.Load() != nil {
 		log.Fatal("error: failed to load .env file")
 	}
-	repo := products.NewRepository()
+	db := store.New(store.FileType, "./products.json")
+	repo := products.NewRepository(db)
 	service := products.NewService(repo)
 	p := handler.NewProduct(service)
 

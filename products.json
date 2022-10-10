@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "Bass",
+    "colour": "silver",
+    "price": 200,
+    "stock": 5,
+    "code": "ASDF",
+    "published": true,
+    "created-at": "Today"
+  },
+  {
+    "id": 2,
+    "name": "Guitar",
+    "colour": "blue",
+    "price": 200,
+    "stock": 5,
+    "code": "ASDF",
+    "published": true,
+    "created-at": "Today"
+  }
+]
