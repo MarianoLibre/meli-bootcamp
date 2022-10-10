@@ -78,27 +78,27 @@ func (c *Product) Store() gin.HandlerFunc {
 			ctx.JSON(404, web.NewResponse(404, nil, err.Error()))
 			return
 		}
-        // Validate request
-        switch {
-        case req.Name == "":
-            ctx.JSON(400, web.NewResponse(400, nil, "'Name' is required"))
-            return
-        case req.Colour == "":
-            ctx.JSON(400, web.NewResponse(400, nil, "'Colour' is required"))
-            return
-        case req.Code == "":
-            ctx.JSON(400, web.NewResponse(400, nil, "'Code' is required"))
-            return
-        case req.CreatedAt == "":
-            ctx.JSON(400, web.NewResponse(400, nil, "'CreatedAt' is required"))
-            return
-        case req.Stock == 0:
-            ctx.JSON(400, web.NewResponse(400, nil, "'Stock' is required"))
-            return
-        case req.Price == 0.0:
-            ctx.JSON(400, web.NewResponse(400, nil, "'Price' is required"))
-            return
-        }
+		// Validate request
+		switch {
+		case req.Name == "":
+			ctx.JSON(400, web.NewResponse(400, nil, "'Name' is required"))
+			return
+		case req.Colour == "":
+			ctx.JSON(400, web.NewResponse(400, nil, "'Colour' is required"))
+			return
+		case req.Code == "":
+			ctx.JSON(400, web.NewResponse(400, nil, "'Code' is required"))
+			return
+		case req.CreatedAt == "":
+			ctx.JSON(400, web.NewResponse(400, nil, "'CreatedAt' is required"))
+			return
+		case req.Stock == 0:
+			ctx.JSON(400, web.NewResponse(400, nil, "'Stock' is required"))
+			return
+		case req.Price == 0.0:
+			ctx.JSON(400, web.NewResponse(400, nil, "'Price' is required"))
+			return
+		}
 		//fmt.Println("HANDLER>>> ", req)
 		p, err := c.service.Store(req.Name, req.Colour, req.Code, req.CreatedAt, req.Stock, req.Price, req.Published)
 		if err != nil {

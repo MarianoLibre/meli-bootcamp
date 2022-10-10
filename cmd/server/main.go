@@ -34,8 +34,8 @@ func main() {
 	p := handler.NewProduct(service)
 	r := gin.Default()
 
-    docs.SwaggerInfo.Host = os.Getenv("HOST")
-    r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	docs.SwaggerInfo.Host = os.Getenv("HOST")
+	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	pr := r.Group("/products")
 	pr.POST("/", p.Store())
