@@ -1,6 +1,6 @@
 package products
 
-import "fmt"
+//import "fmt"
 
 type Service interface {
 	GetAll() ([]Product, error)
@@ -42,7 +42,7 @@ func (s *service) Store(name, colour, code, createdAt string, stock int, price f
 		return Product{}, err
 	}
 
-	fmt.Println("SERVICE>>> !", producto)
+	//fmt.Println("SERVICE>>> !", producto)
 	return producto, nil
 }
 
