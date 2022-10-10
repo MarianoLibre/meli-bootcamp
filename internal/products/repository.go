@@ -127,8 +127,8 @@ func (r *repository) Delete(id int) error {
 		return fmt.Errorf("Product '%d' not found", id)
 	}
 	ps = append(ps[:index], ps[index+1:]...)
-    if r.db.Write(ps) != nil {
-        return fmt.Errorf("error while deleting product '%d'", id)
-    }
+	if r.db.Write(ps) != nil {
+		return fmt.Errorf("error while deleting product '%d'", id)
+	}
 	return nil
 }
