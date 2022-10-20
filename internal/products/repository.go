@@ -93,6 +93,24 @@ func (r *repository) Update(id int, name, colour, code, createdAt string, stock 
 	return p, nil
 }
 
+func (r *repository) UpdateName(id int, name string) (Product, error) {
+	var p Product
+	updated := false
+	var ps []Product
+	r.db.Read(&ps)
+	for i := range ps {
+		if ps[i].Id == id {
+			ps[i].Name = name
+			updated = true
+			p = ps[i]
+		}
+	}
+	if !updated {
+		return Product{}, fmt.Errorf("Product '%d' not found", id)
+	}
+	return p, nil
+}
+
 func (r *repository) UpdateNameAndPrice(id int, name string, price float64) (Product, error) {
 	var p Product
 	updated := false
