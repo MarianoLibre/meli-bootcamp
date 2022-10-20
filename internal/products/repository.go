@@ -22,6 +22,7 @@ type Repository interface {
 	Store(id int, name, colour, code, createdAt string, stock int, price float64, published bool) (Product, error)
 	LastID() (int, error)
 	Update(id int, name, colour, code, createdAt string, stock int, price float64, published bool) (Product, error)
+	UpdateName(id int, name string) (Product, error)
 	UpdateNameAndPrice(id int, name string, price float64) (Product, error)
 	Delete(id int) error
 }
